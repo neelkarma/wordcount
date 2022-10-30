@@ -1,0 +1,12 @@
+{
+  "name": "wordcount_core",
+  "version": "0.1.0",
+  "files": [
+    "wordcount_core_bg.wasm",
+    "wordcount_core.js",
+    "wordcount_core.d.ts"
+  ],
+  "module": "wordcount_core.js",
+  "types": "wordcount_core.d.ts",
+  "sideEffects": false
+}
