@@ -7,7 +7,7 @@
     paragraph_count,
     reading_time,
     speaking_time,
-  } from "../../core/pkg";
+  } from "../../core/pkg/wordcount_core";
   import { onMount } from "svelte";
 
   export let text: string;
