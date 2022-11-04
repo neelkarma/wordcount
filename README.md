@@ -4,6 +4,10 @@
 
 ![WordCount Screen Recording](./assets/screencap.gif)
 
+## Note
+
+This was made because I wanted to learn WebAssembly. Pls no hate for the bloat.
+
 ## Development
 
 Requirements:

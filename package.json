@@ -5,24 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "tsc && vite build",
     "preview": "vite preview",
-    "check": "svelte-check --tsconfig ./tsconfig.json",
     "build-core": "cd core && wasm-pack build && rimraf ./pkg/.gitignore && cd .."
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^1.0.2",
-    "@tsconfig/svelte": "^3.0.0",
-    "autoprefixer": "^10.4.13",
-    "postcss": "^8.4.18",
     "rimraf": "^3.0.2",
-    "svelte": "^3.49.0",
-    "svelte-check": "^2.8.1",
-    "svelte-preprocess": "^4.10.7",
-    "tailwindcss": "^3.2.1",
-    "tslib": "^2.4.0",
     "typescript": "^4.6.4",
-    "vite": "^3.1.0",
+    "vite": "^3.2.0",
     "vite-plugin-top-level-await": "^1.2.1",
     "vite-plugin-wasm": "^3.1.0"
   },

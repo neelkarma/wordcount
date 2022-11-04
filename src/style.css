@@ -1,0 +1,111 @@
+/* Global Stuff */
+:root {
+  --body-color: #27272a;
+  --muted-color: #a1a1aa;
+  --hover-muted-color: #525252;
+  --bg-color: #fafafa;
+  --hover-bg-color: #f4f4f5;
+  --transition-curve: cubic-bezier(0.4, 0, 0.2, 1);
+  --content-width: calc(100vw * 11 / 12);
+
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --body-color: #d4d4d8;
+    --muted-color: #71717a;
+    --hover-muted-color: #a3a3a3;
+    --bg-color: #171717;
+    --hover-bg-color: #27272a;
+  }
+}
+
+/* md */
+@media screen and (min-width: 768px) {
+  :root {
+    --content-width: calc(100vw * 3 / 4);
+  }
+}
+
+/* lg */
+@media screen and (min-width: 1024px) {
+  :root {
+    --content-width: calc(100vw * 1 / 2);
+  }
+}
+
+body {
+  font-family: Inter, Arial, sans-serif;
+  font-size: 1rem;
+
+  background-color: var(--bg-color);
+  color: var(--body-color);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* Editor */
+
+#editor {
+  width: var(--content-width);
+  margin: 0 auto;
+
+  height: auto;
+  resize: none;
+}
+
+#editor:focus {
+  outline: none;
+}
+
+/* Stats */
+#stats {
+  --expanded-height: 55px; /* Modified in script */
+
+  position: sticky;
+  top: 0;
+  left: 0;
+  height: 55px;
+  overflow-y: hidden;
+  background-color: var(--bg-color);
+  color: var(--muted-color);
+
+  transition: all 300ms var(--transition-curve);
+}
+
+#stats[data-scrolled] {
+  background-color: var(--hover-bg-color);
+  color: var(--hover-muted-color);
+}
+
+#stats:hover {
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+  background-color: var(--hover-bg-color);
+  height: var(--expanded-height);
+  color: var(--hover-muted-color);
+}
+
+#stat-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  width: var(--content-width);
+  margin: 1rem auto;
+}
+
+#stats:hover .main-stat {
+  font-weight: bold;
+}
+
+#stats-expanded {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
