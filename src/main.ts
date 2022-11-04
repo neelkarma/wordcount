@@ -94,7 +94,7 @@ else document.addEventListener("DOMContentLoaded", init);
 
 // Main App Logic
 
-editor.addEventListener("input", (e) => {
+editor.addEventListener("input", () => {
   updateStats();
   saveToLocalStorage();
 });
