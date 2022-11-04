@@ -4,6 +4,17 @@
 
 ![WordCount Screen Recording](./assets/screencap.gif)
 
+## FAQ
+
+### How do you get the reading and speaking times?
+
+The reading time is based off an average reading speed of 275wpm and the
+speaking time is based off an average speaking speed of 180wpm.
+
+### Are spaces included in the character count?
+
+Yes.
+
 ## Development
 
 Requirements:
