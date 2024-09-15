@@ -22,15 +22,12 @@ Requirements:
 - Git
 - NodeJS
 - `pnpm`
-- Rust Toolchain + Cargo
-- `wasm-pack`
 
 To Develop:
 
 1. `git clone https://github.com/neelkarma/wordcount.git`
 2. `pnpm i`
-3. `pnpm build-core`
-4. `pnpm dev`
+3. `pnpm dev`
 
 To Build:
 

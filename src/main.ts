@@ -1,26 +1,28 @@
 import "@fontsource/inter";
 import "./style.css";
-import {
-  word_count,
-  char_count,
-  unique_word_count,
-  paragraph_count,
-  reading_time,
-  speaking_time,
-} from "../core/pkg";
 import { debounce, humanizeDurationMins, plural } from "./utils";
 
 // Elements
-const editor = document.getElementById("editor")!;
-const stats = document.getElementById("stats")!;
-const wordsCharsEl = document.getElementById("words-chars")!;
-const uniqueWordsEl = document.getElementById("unique-words")!;
-const paragraphsEl = document.getElementById("paragraphs")!;
-const readingTimeEl = document.getElementById("reading-time")!;
-const speakingTimeEl = document.getElementById("speaking-time")!;
+const editor = <HTMLDivElement>document.getElementById("editor");
+const stats = <HTMLDivElement>document.getElementById("stats");
+const wordsCharsEl = <HTMLParagraphElement>(
+  document.getElementById("words-chars")
+);
+const charsExcludingSpacesEl = <HTMLParagraphElement>(
+  document.getElementById("chars-excluding-spaces")
+);
+const paragraphsEl = <HTMLParagraphElement>(
+  document.getElementById("paragraphs")
+);
+const readingTimeEl = <HTMLParagraphElement>(
+  document.getElementById("reading-time")
+);
+const speakingTimeEl = <HTMLParagraphElement>(
+  document.getElementById("speaking-time")
+);
 
 /** Function to focus the editor */
-const focusEditor = () => {
+function focusEditor() {
   if (document.activeElement == editor) return; // Skip if already focused
   const range = document.createRange();
   const selection = window.getSelection()!;
@@ -30,41 +32,41 @@ const focusEditor = () => {
   selection.addRange(range);
   editor.focus();
   range.detach();
-};
+}
 
 const saveToLocalStorage = debounce(() => {
-  const contents = editor.innerHTML;
+  const contents = editor.innerText;
   window.localStorage.setItem("text", contents);
 });
 
-const updateStats = () => {
+function updateStats() {
   const selected = window.getSelection()?.toString() ?? "";
   const input = editor.innerText;
 
   const text = selected || input;
 
-  const wordCount = word_count(text);
-  const charCount = char_count(text);
-  const uniqueWordCount = unique_word_count(text);
-  const paragraphCount = paragraph_count(text);
-  const readingTime = humanizeDurationMins(reading_time(text));
-  const speakingTime = humanizeDurationMins(speaking_time(text));
+  const wordCount = text.split(" ").filter((word) => word.length).length;
+  const charCountExcludingSpaces = text.replaceAll(/\s+/g, "").length;
+  const charCount = text.length;
+  const paragraphCount = text.split("\n").filter((para) => para.length).length;
+  const readingTime = humanizeDurationMins(wordCount / 275);
+  const speakingTime = humanizeDurationMins(wordCount / 180);
 
   wordsCharsEl.innerHTML = `${wordCount} word${plural(
-    wordCount
+    wordCount,
   )}, ${charCount} character${plural(charCount)}`;
-  uniqueWordsEl.innerHTML = `${uniqueWordCount} unique word${plural(
-    uniqueWordCount
-  )}`;
+  charsExcludingSpacesEl.innerHTML = `${charCountExcludingSpaces} character${plural(
+    charCountExcludingSpaces,
+  )} (excluding spaces)`;
   paragraphsEl.innerHTML = `${paragraphCount} paragraph${plural(
-    paragraphCount
+    paragraphCount,
   )}`;
   readingTimeEl.innerHTML = `${readingTime} to read`;
   speakingTimeEl.innerHTML = `${speakingTime} to speak`;
-};
+}
 
 // Initialization Work
-const init = () => {
+function init() {
   // Restore localStorage text
   editor.innerHTML = window.localStorage.getItem("text") ?? "";
   updateStats();
@@ -87,23 +89,23 @@ const init = () => {
       stats.removeAttribute("data-scrolled");
     }
   };
-};
+}
+
 // Account for if DOM is already loaded
 if (document.readyState !== "loading") init();
 else document.addEventListener("DOMContentLoaded", init);
 
 // Main App Logic
-
-editor.addEventListener("input", () => {
+editor.oninput = () => {
   updateStats();
   saveToLocalStorage();
-});
+};
 
-editor.addEventListener("mouseup", () => {
+editor.onmouseup = () => {
   updateStats();
-});
+};
 
-editor.addEventListener("paste", (e) => {
+editor.onpaste = (e) => {
   e.preventDefault();
 
   const text = e.clipboardData?.getData("text/plain");
@@ -114,4 +116,4 @@ editor.addEventListener("paste", (e) => {
   selection.collapseToEnd();
 
   updateStats();
-});
+};
